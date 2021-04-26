@@ -1,2 +1,11 @@
-# testing-library-part1
-Intro to testing library
+# Installation
+
+```
+npm install
+```
+
+# dev mode
+
+```
+npm start
+```
