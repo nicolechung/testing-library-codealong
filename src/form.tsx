@@ -32,11 +32,15 @@ export function Form() {
     e.preventDefault();
     if (textValue.trim() === "#invalid") {
       setTextError("text is invalid");
+    } else {
+      setTextError("")
     }
     if (Date.parse(dateValue) < Date.now()) {
       setDateError("date is invalid");
+    } else {
+      setDateError("")
     }
-    if (dateError !== "" && textError !== "") {
+    if (Date.parse(dateValue) >= Date.now() && textValue.trim() !== "#invalid") {
       setSubmitSuccess(true);
     }
   };
@@ -45,8 +49,8 @@ export function Form() {
     return <h1>Form was submitted successfully!</h1>;
   } else {
     return (
-      <div className="App">
-        <h1>Form submission example</h1>
+      <div className="Form">
+        <h1>Fake form</h1>
         <p>
           Hint: to fail the form validation, either enter a date before today or
           type "#textfail" in the textbox
