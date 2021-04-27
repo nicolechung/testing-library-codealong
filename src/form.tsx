@@ -1,17 +1,11 @@
 import React, { useState, useEffect } from "react";
 import "./styles.css";
+import { fakeFetch, FetchResponse } from './fake-fetch'
 
-export const fakeFetch: () => Promise<Response> = () => {
-  return new Promise((resolve) =>
-    setTimeout(() => resolve({ date: "2021-02-21", text: "#invalid" }), 2000)
-  );
-};
-
-type Response = {
-  text: string;
-  date: string;
-};
-
+/**
+ * 👉 👉 NEVER MAKE A FORM THIS WAY 👈 👈
+ * 👏 👏 Use a form library please 👏 👏
+ */
 export function Form() {
   const [textValue, setTextValue] = useState("");
   const [dateValue, setDateValue] = useState("");
@@ -21,7 +15,7 @@ export function Form() {
 
   useEffect(() => {
     async function fetchData() {
-      const result: Response = await fakeFetch();
+      const result: FetchResponse = await fakeFetch();
       setDateValue(result.date);
       setTextValue(result.text);
     }
