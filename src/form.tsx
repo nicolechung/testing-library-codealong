@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import "./styles.css";
 import { fakeFetch, FetchResponse } from './fake-fetch'
+import 'regenerator-runtime/runtime'
 
 /**
  * 👉 👉 NEVER MAKE A FORM THIS WAY 👈 👈
  * 👏 👏 Use a form library please 👏 👏
  */
-export function Form() {
+export const Form = () => {
   const [textValue, setTextValue] = useState("");
   const [dateValue, setDateValue] = useState("");
   const [textError, setTextError] = useState("");
