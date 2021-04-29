@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
+import { isDate } from 'lodash';
+import React, { useEffect, useState } from "react";
+import 'regenerator-runtime/runtime';
+import { fakeFetch, FetchResponse } from './fake-fetch';
 import "./styles.css";
-import { fakeFetch, FetchResponse } from './fake-fetch'
-import 'regenerator-runtime/runtime'
-
 /**
  * 👉 👉 NEVER MAKE A FORM THIS WAY 👈 👈
  * 👏 👏 Use a form library please 👏 👏
@@ -23,6 +23,8 @@ export const Form = () => {
     fetchData();
   }, []);
 
+  const storage = window.localStorage;
+
   const onSubmit = (e: any) => {
     e.preventDefault();
     if (textValue.trim() === "#invalid") {
@@ -41,15 +43,22 @@ export const Form = () => {
   };
 
   if (submitSuccess) {
-    return <h1>Form was submitted successfully!</h1>;
+    return (
+      <div className="Form">
+        <h1>Form was submitted successfully!</h1>
+        <p>{isDate(new Date(dateValue)) ? 'Good date' : `Bad date`}</p>
+      </div>
+    )
   } else {
     return (
       <div className="Form">
         <h1>Fake form</h1>
         <p>
-          Hint: to fail the form validation, either enter a date before today or
-          type "#textfail" in the textbox
+          Hint: to fail the form validation, either enter a date before <strong>today</strong> or
+          type <strong>"#textfail"</strong> in the textbox
         </p>
+        <h2>{(window as any).special}</h2>
+        <h3>{storage.getItem('yo')}</h3>
         <div className="form-container">
           <form>
             <label>
