@@ -54,8 +54,8 @@ export const Form = () => {
       <div className="Form">
         <h1>Fake form</h1>
         <p>
-          Hint: to fail the form validation, either enter a date before today or
-          type "#textfail" in the textbox
+          Hint: to fail the form validation, either enter a date before <strong>today</strong> or
+          type <strong>"#textfail"</strong> in the textbox
         </p>
         <h2>{(window as any).special}</h2>
         <h3>{storage.getItem('yo')}</h3>
