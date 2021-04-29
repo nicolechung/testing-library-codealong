@@ -1,3 +1,7 @@
+# Testing library code-along
+
+![Image of form](example.png)
+
 # Installation
 
 ```
@@ -17,3 +21,9 @@ npm start
 [Chrome extension](https://chrome.google.com/webstore/detail/testing-playground/hejbmebodbijjdhflfknehhcgaklhano?hl=en)
 
 [Firefox extension](https://addons.mozilla.org/en-CA/firefox/addon/testing-playground/)
+
+# Resources
+
+[Javascript Testing Best Practices](https://github.com/goldbergyoni/javascript-testing-best-practices)
+
+[Jest cheatsheet](https://devhints.io/jest)
