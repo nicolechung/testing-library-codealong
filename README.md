@@ -27,7 +27,6 @@ npm start
 [Javascript Testing Best Practices](https://github.com/goldbergyoni/javascript-testing-best-practices)
 
 [Jest cheatsheet](https://devhints.io/jest)
-=======
 
 [Testing Playground website](https://testing-playground.com/)
 
