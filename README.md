@@ -10,6 +10,10 @@ npm install
 npm start
 ```
 
-# Notes
+# Testing Playground
 
-Never build a form like this. Use a form library.
+[Testing Playground website](https://testing-playground.com/)
+
+[Chrome extension](https://chrome.google.com/webstore/detail/testing-playground/hejbmebodbijjdhflfknehhcgaklhano?hl=en)
+
+[Firefox extension](https://addons.mozilla.org/en-CA/firefox/addon/testing-playground/)
