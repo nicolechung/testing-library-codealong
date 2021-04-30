@@ -19,6 +19,7 @@ Object.defineProperty(window, 'special', {
 jest.mock('./fake-fetch', () => ({
     fakeFetch: jest.fn()
 }))
+
 let fakeFetch = jest.spyOn(Fetch, "fakeFetch")
 
 jest.useFakeTimers()
@@ -26,15 +27,17 @@ jest.useFakeTimers()
 describe('Form', () => {
     beforeEach(() => {
         jest.restoreAllMocks()
-         
+        fakeFetch.mockRestore()
     })
     
     it('renders', async () => {
         
-        fakeFetch.mockImplementation(await act(() => Promise.resolve({date: 'blblb', text: 'BBLB'})))
+        fakeFetch.mockImplementation(() =>Promise.resolve({date: 'blblb', text: 'BBLB'}))
         
         localStorageMock.getItem.mockReturnValue('POOP')
-        render(<Form />)
+        await act(async () => {
+            render(<Form />)
+        })
         await screen.getByRole('heading', {
             name: /Hello/i
         })
@@ -42,18 +45,19 @@ describe('Form', () => {
             name: /POOP/i
         })
         expect(localStorageMock.getItem).toHaveBeenCalled() 
-
+        
     })
     
     it('fetches and displays data', async () => {
-        fakeFetch.mockImplementation(() => Promise.resolve({date: 'blblb', text: 'BBLB'}))
-        
-        render(<Form />)
-        
-        await waitFor(() => expect(Fetch.fakeFetch).toHaveBeenCalledTimes(1))
-        await screen.getByLabelText(/enter a date:/i)
+        fakeFetch.mockImplementation(() =>Promise.resolve({date: 'blblb', text: 'BBLB'}))
+        localStorageMock.getItem.mockReturnValue('POOP')
+        await act(async () => {
+            render(<Form />)
+        })
+        expect(fakeFetch).toHaveBeenCalledTimes(1)
+        // screen.getByLabelText(/enter a date:/i)
         
         console.log(screen.getByLabelText(/enter a date:/i).value)
-        //expect(screen.getByLabelText(/enter a date:/i)).toEqual('hello')
+        // expect(screen.getByLabelText(/enter a date:/i)).toEqual('hello')
     })
 })

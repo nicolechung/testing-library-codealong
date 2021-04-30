@@ -17,7 +17,6 @@ export const Form = () => {
   useEffect(() => {
     async function fetchData() {
       const result: FetchResponse = await fakeFetch();
-      console.log('🤡', {result})
       setDateValue(result.date);
       setTextValue(result.text);
     }
