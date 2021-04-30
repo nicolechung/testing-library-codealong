@@ -40,7 +40,7 @@ describe("Form", () => {
     fakeFetch.mockRestore();
   });
 
-  it("renders", async () => {
+  it("renders and displays data from local storage and global variables", async () => {
     const responseMock = {
       date: "2020-04-20",
       text: "HALLO",
