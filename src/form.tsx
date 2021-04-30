@@ -41,7 +41,6 @@ export const Form = () => {
       setSubmitSuccess(true);
     }
   };
-
   if (submitSuccess) {
     return (
       <div className="Form">
