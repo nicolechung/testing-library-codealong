@@ -1,4 +1,3 @@
-import { isDate } from 'lodash';
 import React, { useEffect, useState } from "react";
 import 'regenerator-runtime/runtime';
 import { fakeFetch, FetchResponse } from './fake-fetch';
@@ -46,7 +45,6 @@ export const Form = () => {
     return (
       <div className="Form">
         <h1>Form was submitted successfully!</h1>
-        <p>{isDate(new Date(dateValue)) ? 'Good date' : `Bad date`}</p>
       </div>
     )
   } else {
