@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, waitFor } from '@testing-library/react'
+import { render, screen, waitFor, act } from '@testing-library/react'
 import { Form } from './form'
 import * as Fetch from './fake-fetch'
 
@@ -19,15 +19,20 @@ Object.defineProperty(window, 'special', {
 jest.mock('./fake-fetch', () => ({
     fakeFetch: jest.fn()
 }))
+let fakeFetch = jest.spyOn(Fetch, "fakeFetch")
 
 jest.useFakeTimers()
 
 describe('Form', () => {
     beforeEach(() => {
-        
-        jest.resetAllMocks()
+        jest.restoreAllMocks()
+         
     })
+    
     it('renders', async () => {
+        
+        fakeFetch.mockImplementation(await act(() => Promise.resolve({date: 'blblb', text: 'BBLB'})))
+        
         localStorageMock.getItem.mockReturnValue('POOP')
         render(<Form />)
         await screen.getByRole('heading', {
@@ -37,17 +42,18 @@ describe('Form', () => {
             name: /POOP/i
         })
         expect(localStorageMock.getItem).toHaveBeenCalled() 
+
     })
     
     it('fetches and displays data', async () => {
-        const fakeFetch = jest.spyOn(Fetch, "fakeFetch")
         fakeFetch.mockImplementation(() => Promise.resolve({date: 'blblb', text: 'BBLB'}))
+        
         render(<Form />)
         
         await waitFor(() => expect(Fetch.fakeFetch).toHaveBeenCalledTimes(1))
-        // await waitFor(() => screen.getByLabelText(/enter a date:/i))
+        await screen.getByLabelText(/enter a date:/i)
         
-        //console.log(screen.getByLabelText(/enter a date:/i).value)
+        console.log(screen.getByLabelText(/enter a date:/i).value)
         //expect(screen.getByLabelText(/enter a date:/i)).toEqual('hello')
     })
 })
