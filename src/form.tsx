@@ -17,12 +17,14 @@ export const Form = () => {
   useEffect(() => {
     async function fetchData() {
       const result: FetchResponse = await fakeFetch();
+      console.log('🤡', {result})
       setDateValue(result.date);
       setTextValue(result.text);
     }
     fetchData();
   }, []);
 
+  
   const storage = window.localStorage;
 
   const onSubmit = (e: any) => {
@@ -60,26 +62,30 @@ export const Form = () => {
         <h3>{storage.getItem('yo')}</h3>
         <div className="form-container">
           <form>
-            <label>
+            <label htmlFor="enterdate">
               Enter a date:
+              </label>
               <input
                 type="date"
+                id="enterdate"
                 value={dateValue}
                 className={dateError && "error"}
                 onChange={(e) => setDateValue(e.target.value)}
               />
               <p className="error">{dateError}</p>
-            </label>
-            <label>
+           
+            <label htmlFor="entertext">
               Enter good text
+              </label>
               <input
                 type="text"
+                id="entertext"
                 value={textValue}
                 className={textError && "error"}
                 onChange={(e) => setTextValue(e.target.value)}
               />
               <p className="error">{textError}</p>
-            </label>
+            
             <button type="submit" onClick={onSubmit}>
               Submit
             </button>
