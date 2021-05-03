@@ -3,6 +3,7 @@ import { render, screen, fireEvent, act } from "@testing-library/react";
 import { Form } from "./form";
 import * as Fetch from "./fake-fetch";
 
+// adding something new and temporary to the global object for this test
 declare global {
     var special: string;
 }
