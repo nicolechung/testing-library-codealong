@@ -40,7 +40,7 @@ describe("Form", () => {
     fakeFetch.mockRestore();
   });
 
-  it("renders and displays data from local storage and global variables", async () => {
+  it("renders, fetches data from the api, localstorage and globals and displays the data", async () => {
     const responseMock = {
       date: "2020-04-20",
       text: "HALLO",
@@ -48,20 +48,12 @@ describe("Form", () => {
     await arrange({ responseMock });
 
     await screen.getByRole("heading", {
-      name: /Hello/i,
-    });
-
+        name: /Hello/i,
+      });
+  
     await screen.getByRole("heading", {
-      name: /POOP/i,
+    name: /POOP/i,
     });
-  });
-
-  it("fetches data from the api and displays the data", async () => {
-    const responseMock = {
-      date: "2020-04-20",
-      text: "HALLO",
-    };
-    await arrange({ responseMock });
 
     expect(
       (screen.getByLabelText(/enter a date:/i) as HTMLInputElement).value
