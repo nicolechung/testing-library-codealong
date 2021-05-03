@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import 'regenerator-runtime/runtime';
-import { fakeFetch, FetchResponse } from './fake-fetch';
+import "regenerator-runtime/runtime";
+import { fakeFetch, FetchResponse } from "./fake-fetch";
 import "./styles.css";
 /**
  * 👉 👉 NEVER MAKE A FORM THIS WAY 👈 👈
@@ -22,7 +22,6 @@ export const Form = () => {
     fetchData();
   }, []);
 
-  
   const storage = window.localStorage;
 
   const onSubmit = (e: any) => {
@@ -30,14 +29,17 @@ export const Form = () => {
     if (textValue.trim() === "#invalid") {
       setTextError("text is invalid");
     } else {
-      setTextError("")
+      setTextError("");
     }
     if (Date.parse(dateValue) < Date.now()) {
       setDateError("date is invalid");
     } else {
-      setDateError("")
+      setDateError("");
     }
-    if (Date.parse(dateValue) >= Date.now() && textValue.trim() !== "#invalid") {
+    if (
+      Date.parse(dateValue) >= Date.now() &&
+      textValue.trim() !== "#invalid"
+    ) {
       setSubmitSuccess(true);
     }
   };
@@ -46,43 +48,40 @@ export const Form = () => {
       <div className="Form">
         <h1>Form was submitted successfully!</h1>
       </div>
-    )
+    );
   } else {
     return (
       <div className="Form">
         <h1>Fake form</h1>
         <p>
-          Hint: to fail the form validation, either enter a date before <strong>today</strong> or
-          type <strong>"#textfail"</strong> in the textbox
+          Hint: to fail the form validation, either enter a date before{" "}
+          <strong>today</strong> or type <strong>"#textfail"</strong> in the
+          textbox
         </p>
         <h2>{(window as any).special}</h2>
-        <h3>{storage.getItem('yo')}</h3>
+        <h3>{storage.getItem("yo")}</h3>
         <div className="form-container">
           <form>
-            <label htmlFor="enterdate">
-              Enter a date:
-              </label>
-              <input
-                type="date"
-                id="enterdate"
-                value={dateValue}
-                className={dateError && "error"}
-                onChange={(e) => setDateValue(e.target.value)}
-              />
-              <p className="error">{dateError}</p>
-           
-            <label htmlFor="entertext">
-              Enter good text
-              </label>
-              <input
-                type="text"
-                id="entertext"
-                value={textValue}
-                className={textError && "error"}
-                onChange={(e) => setTextValue(e.target.value)}
-              />
-              <p className="error">{textError}</p>
-            
+            <label htmlFor="enterdate">Enter a date:</label>
+            <input
+              type="date"
+              id="enterdate"
+              value={dateValue}
+              className={dateError && "error"}
+              onChange={(e) => setDateValue(e.target.value)}
+            />
+            <p className="error">{dateError}</p>
+
+            <label htmlFor="entertext">Enter good text</label>
+            <input
+              type="text"
+              id="entertext"
+              value={textValue}
+              className={textError && "error"}
+              onChange={(e) => setTextValue(e.target.value)}
+            />
+            <p className="error">{textError}</p>
+
             <button type="submit" onClick={onSubmit}>
               Submit
             </button>
@@ -91,4 +90,4 @@ export const Form = () => {
       </div>
     );
   }
-}
+};
