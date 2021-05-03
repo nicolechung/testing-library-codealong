@@ -30,7 +30,6 @@ const arrange = async ({ responseMock }) => {
 describe("Form", () => {
   beforeEach(() => {
     jest.useFakeTimers();
-    jest.restoreAllMocks();
     getItemSpy = jest
     .spyOn(global.Storage.prototype, 'getItem')
     .mockReturnValue('Hello')
