@@ -5,16 +5,12 @@ import * as Fetch from "./fake-fetch";
 
 Date.now = jest.fn(() => new Date('2020-04-30').valueOf());
 
-const localStorageMock = {
-  getItem: jest.fn(),
-};
+// spyOn globals that already exist on the window
+let getItemSpy
 
-Object.defineProperty(window, "localStorage", {
-  value: localStorageMock,
-});
-
+// define properties that don't already exist in js-dom
 Object.defineProperty(window, "special", {
-  value: "Hello",
+  value: "POOP",
 });
 
 jest.mock("./fake-fetch");
@@ -24,22 +20,29 @@ let fakeFetch = jest.spyOn(Fetch, "fakeFetch");
 const arrange = async ({ responseMock }) => {
   fakeFetch.mockImplementation(() => Promise.resolve(responseMock));
 
-  localStorageMock.getItem.mockReturnValue("POOP");
   await act(async () => {
     render(<Form />);
   });
   expect(fakeFetch).toHaveBeenCalledTimes(1);
-  expect(localStorageMock.getItem).toHaveBeenCalled();
+  expect(getItemSpy).toHaveBeenCalled();
 };
 
 describe("Form", () => {
   beforeEach(() => {
     jest.useFakeTimers();
     jest.restoreAllMocks();
-    fakeFetch.mockRestore();
+    getItemSpy = jest
+    .spyOn(global.Storage.prototype, 'getItem')
+    .mockReturnValue('Hello')
+  });
+
+  afterEach(() => {
+    getItemSpy.mockRestore()
+    fakeFetch.mockRestore()
   });
 
   it("renders, fetches data from the api, localstorage and globals and displays the data", async () => {
+    
     const responseMock = {
       date: "2020-04-20",
       text: "HALLO",
