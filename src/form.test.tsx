@@ -3,15 +3,15 @@ import { render, screen, fireEvent, act } from "@testing-library/react";
 import { Form } from "./form";
 import * as Fetch from "./fake-fetch";
 
+declare global {
+    var special: string;
+}
+
 Date.now = jest.fn(() => new Date('2020-04-30').valueOf());
 
 // spyOn globals that already exist on the window
 let getItemSpy
 
-// define properties that don't already exist in js-dom
-Object.defineProperty(window, "special", {
-  value: "POOP",
-});
 
 jest.mock("./fake-fetch");
 
@@ -33,6 +33,8 @@ describe("Form", () => {
     getItemSpy = jest
     .spyOn(global.Storage.prototype, 'getItem')
     .mockReturnValue('Hello')
+
+    global.special  = 'POOP'
   });
 
   afterEach(() => {
