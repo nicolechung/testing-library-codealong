@@ -8,8 +8,6 @@ declare global {
   var special: string;
 }
 
-Date.now = jest.fn(() => new Date("2020-04-30").valueOf());
-
 // spyOn globals that already exist on the window
 let getItemSpy;
 
@@ -35,12 +33,20 @@ describe("Form", () => {
       .mockReturnValue("Hello");
 
     global.special = "POOP";
+
+    const dateNowStub = jest.fn(() => new Date("2020-04-30").valueOf());
+    global.Date.now = dateNowStub;
   });
 
   afterEach(() => {
     getItemSpy.mockRestore();
     fakeFetch.mockRestore();
   });
+
+  afterAll(() => {
+    const realDateNow = Date.now.bind(global.Date);
+    global.Date.now = realDateNow
+  })
 
   it("renders, fetches data from the api, localstorage and globals and displays the data", async () => {
     const responseMock = {
