@@ -6,7 +6,6 @@ import * as Fetch from "./fake-fetch";
 Date.now = jest.fn(() => new Date('2020-04-30').valueOf());
 
 const localStorageMock = {
-  setItem: jest.fn(),
   getItem: jest.fn(),
 };
 
@@ -120,6 +119,5 @@ describe("Form", () => {
       expect(screen.getByRole('heading', {
         name: /form was submitted successfully!/i
       })).toBeVisible()
-     
   });
 });
