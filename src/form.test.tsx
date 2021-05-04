@@ -46,6 +46,7 @@ describe("Form", () => {
   afterAll(() => {
     const realDateNow = Date.now.bind(global.Date);
     global.Date.now = realDateNow
+    delete global.special
   })
 
   it("renders, fetches data from the api, localstorage and globals and displays the data", async () => {
@@ -132,3 +133,4 @@ describe("Form", () => {
     ).toBeVisible();
   });
 });
+
