@@ -8,4 +8,3 @@ export const fakeFetch: () => Promise<FetchResponse> = () => {
     setTimeout(() => resolve({ date: "2021-02-21", text: "#invalid" }), 2000)
   );
 };
-

@@ -50,6 +50,7 @@ input:focus {
 .error {
   color: red;
   border-color: red;
+  background-color: white;
 }
 
 h2,
