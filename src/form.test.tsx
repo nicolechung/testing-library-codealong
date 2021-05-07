@@ -5,7 +5,7 @@ import * as Fetch from "./fake-fetch";
 
 // adding something new and temporary to the global object for this test
 declare global {
-  var special: string;
+  var fakeThirdPartyJSLibrary: string;
 }
 
 // spyOn globals that already exist on the window
@@ -32,7 +32,7 @@ describe("Form", () => {
       .spyOn(global.Storage.prototype, "getItem")
       .mockReturnValue("Hello");
 
-    global.special = "POOP";
+    global.fakeThirdPartyJSLibrary = "POOP";
 
     const dateNowStub = jest.fn(() => new Date("2020-04-30").valueOf());
     global.Date.now = dateNowStub;

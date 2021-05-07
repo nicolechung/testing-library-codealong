@@ -58,7 +58,7 @@ export const Form = () => {
           <strong>today</strong> or type <strong>"#textfail"</strong> in the
           textbox
         </p>
-        <h2>{(window as any).special}</h2>
+        <h2>{(window as any).fakeThirdPartyJSLibrary}</h2>
         <h3>{storage.getItem("yo")}</h3>
         <div className="form-container">
           <form>
