@@ -14,6 +14,10 @@ npm install
 npm start
 ```
 
+# working tests
+
+Working tests are in src/finished
+
 # Testing Playground
 
 [Testing Playground website](https://testing-playground.com/)
