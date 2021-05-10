@@ -55,7 +55,7 @@ export const Form = () => {
         <h1>Fake form</h1>
         <p>
           Hint: to fail the form validation, either enter a date before{" "}
-          <strong>today</strong> or type <strong>"#textfail"</strong> in the
+          <strong>today</strong> or type <strong>"#invalid"</strong> in the
           textbox
         </p>
         <h2>{(window as any).fakeThirdPartyJSLibrary}</h2>
