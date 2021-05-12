@@ -9,7 +9,6 @@ declare global {
   var fakeThirdPartyJSLibrary: string;
 }
 
-
 let getItemSpy;
 let fakeFetch = jest.spyOn(Fetch, 'fakeFetch')
 
@@ -18,6 +17,8 @@ const arrange = async({responseMock}) => {
   await act(async () => {
     render(<Form />);
   });
+  expect(fakeFetch).toHaveBeenCalledTimes(1);
+  expect(getItemSpy).toHaveBeenCalled();
 }
 
 describe('Form', () => {
@@ -28,6 +29,11 @@ describe('Form', () => {
     const dateNowStub = jest.fn(() => new Date('2020-04-30').valueOf())
     global.Date.now = dateNowStub
   })
+
+  afterEach(() => {
+    getItemSpy.mockRestore();
+    fakeFetch.mockRestore();
+  });
 
   afterAll(() => {
     delete global.fakeThirdPartyJSLibrary
@@ -112,3 +118,4 @@ describe('Form', () => {
     })).toBeVisible()
   });
 })
+
