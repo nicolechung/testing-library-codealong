@@ -64,6 +64,13 @@ describe("Form", () => {
       name: /POOP/i,
     });
 
+    expect(screen.getByRole("heading", {
+      name: /Hello/i,
+    }).textContent).toEqual('Hello')
+    expect(screen.getByRole("heading", {
+      name: /POOP/i,
+    }).textContent).toEqual('POOP')
+
     expect(
       (screen.getByLabelText(/enter a date:/i) as HTMLInputElement).value
     ).toEqual(responseMock.date);
