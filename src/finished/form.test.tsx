@@ -2,142 +2,113 @@ import React from "react";
 import { render, screen, fireEvent, act } from "@testing-library/react";
 import { Form } from "./form";
 import * as Fetch from "./fake-fetch";
+jest.mock('./fake-fetch')
 
 // adding something new and temporary to the global object for this test
 declare global {
   var fakeThirdPartyJSLibrary: string;
 }
 
-// spyOn globals that already exist on the window
+
 let getItemSpy;
+let fakeFetch = jest.spyOn(Fetch, 'fakeFetch')
 
-jest.mock("./fake-fetch");
-
-let fakeFetch = jest.spyOn(Fetch, "fakeFetch");
-
-const arrange = async ({ responseMock }) => {
-  fakeFetch.mockImplementation(() => Promise.resolve(responseMock));
-
+const arrange = async({responseMock}) => {
+  fakeFetch.mockImplementation(() => (responseMock))
   await act(async () => {
     render(<Form />);
   });
-  expect(fakeFetch).toHaveBeenCalledTimes(1);
-  expect(getItemSpy).toHaveBeenCalled();
-};
+}
 
-describe("Form", () => {
+describe('Form', () => {
   beforeEach(() => {
-    jest.useFakeTimers();
-    getItemSpy = jest
-      .spyOn(global.Storage.prototype, "getItem")
-      .mockReturnValue("Hello");
+    global.fakeThirdPartyJSLibrary = '💪 hello world!! 💪'
+    getItemSpy = jest.spyOn(global.Storage.prototype, "getItem").mockReturnValue('💩💩💩')
 
-    global.fakeThirdPartyJSLibrary = "POOP";
-
-    const dateNowStub = jest.fn(() => new Date("2020-04-30").valueOf());
-    global.Date.now = dateNowStub;
-  });
-
-  afterEach(() => {
-    getItemSpy.mockRestore();
-    fakeFetch.mockRestore();
-  });
+    const dateNowStub = jest.fn(() => new Date('2020-04-30').valueOf())
+    global.Date.now = dateNowStub
+  })
 
   afterAll(() => {
-    const realDateNow = Date.now.bind(global.Date);
-    global.Date.now = realDateNow
     delete global.fakeThirdPartyJSLibrary
+    const realDateNow = Date.now.bind(global.Date)
+    global.Date.now = realDateNow
   })
 
   it("should render, fetch data from the api, localstorage and globals and display the data", async () => {
     const responseMock = {
-      date: "2020-04-20",
-      text: "HALLO",
-    };
-    await arrange({ responseMock });
+      date: '2020-02-01',
+      text: '#invalid'
+    }
+    await arrange({responseMock})
+    expect(screen.getByRole('heading', {
+      name: /💪 hello world!! 💪/i
+    }).textContent).toEqual('💪 hello world!! 💪')
 
-    await screen.getByRole("heading", {
-      name: /Hello/i,
-    });
-
-    await screen.getByRole("heading", {
-      name: /POOP/i,
-    });
-
-    expect(screen.getByRole("heading", {
-      name: /Hello/i,
-    }).textContent).toEqual('Hello')
-    expect(screen.getByRole("heading", {
-      name: /POOP/i,
-    }).textContent).toEqual('POOP')
-
+    expect(screen.getByRole('heading', {
+      name: /💩💩💩/i
+    }).textContent).toEqual('💩💩💩')
     expect(
       (screen.getByLabelText(/enter a date:/i) as HTMLInputElement).value
-    ).toEqual(responseMock.date);
+    ).toEqual('2020-02-01')
     expect(
-      (screen.getByRole("textbox", {
-        name: /enter good text/i,
+      (screen.getByRole('textbox', {
+        name: /enter good text/i
       }) as HTMLInputElement).value
-    ).toEqual(responseMock.text);
+    ).toEqual('#invalid')
   });
 
-  it("should display errors with invalid data and prevent submitting", async () => {
+  it("should display errors with invalid data and prevent form submi", async () => {
     const responseMock = {
-      date: "2020-04-20",
-      text: "#invalid",
-    };
-    await arrange({ responseMock });
-    fireEvent.change(screen.getByLabelText(/enter a date:/i), {
-      target: { value: "2020-01-01" },
-    });
-    fireEvent.change(
-      screen.getByRole("textbox", {
-        name: /enter good text/i,
-      }),
-      { target: { value: "#invalid" } }
-    );
-
+      date: '2020-02-01',
+      text: '#invalid'
+    }
+    await arrange({responseMock})
+    // click the form submit
     act(() => {
       fireEvent.click(
-        screen.getByRole("button", {
-          name: /submit/i,
+        screen.getByRole('button', {
+          name: /submit/i
         })
-      );
-    });
-    expect(screen.getByText(/date is invalid/i)).toBeVisible();
-    expect(screen.getByText(/text is invalid/i)).toBeVisible();
+      )
+    })
+    // check to see if the errors exist
+    expect(screen.getByText(/date is invalid/i)).toBeVisible()
+    expect(screen.getByText(/text is invalid/i)).toBeVisible()
   });
 
   it("should display a success message with valid data on form submit", async () => {
     const responseMock = {
-      date: "2020-04-20",
-      text: "#invalid",
-    };
-    await arrange({ responseMock });
+      date: '2020-02-01',
+      text: '#invalid'
+    }
+    await arrange({responseMock})
+    // enter correct data
     fireEvent.change(screen.getByLabelText(/enter a date:/i), {
-      target: { value: "2020-05-10" },
-    });
-    fireEvent.change(
-      screen.getByRole("textbox", {
-        name: /enter good text/i,
-      }),
-      { target: { value: "Hello! This is good text" } }
-    );
+      target: { value: '2020-05-11'}
+    })
 
+    fireEvent.change(screen.getByRole('textbox', {
+      name: /enter good text/i
+    }), {
+      target: { value: 'Something good'}
+    })
+    // click the form submit
     act(() => {
       fireEvent.click(
-        screen.getByRole("button", {
-          name: /submit/i,
+        screen.getByRole('button', {
+          name: /submit/i
         })
-      );
-    });
-    expect(screen.queryByText(/date is invalid/i)).toBe(null);
-    expect(screen.queryByText(/text is invalid/i)).toBe(null);
-    expect(
-      screen.getByRole("heading", {
-        name: /form was submitted successfully!/i,
-      })
-    ).toBeVisible();
-  });
-});
+      )
+    })
 
+    // check to see if the errors are NOT present
+    expect(screen.queryByText(/date is invalid/i)).toBeNull()
+    expect(screen.queryByText(/text is invalid/i)).toBeNull()
+
+    // check for success message
+    expect(screen.getByRole('heading', {
+      name: /form was submitted successfully!/i
+    })).toBeVisible()
+  });
+})
