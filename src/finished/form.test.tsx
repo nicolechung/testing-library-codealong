@@ -13,7 +13,7 @@ let getItemSpy;
 let fakeFetch = jest.spyOn(Fetch, 'fakeFetch')
 
 const arrange = async({responseMock}) => {
-  fakeFetch.mockImplementation(() => (responseMock))
+  fakeFetch.mockImplementation(() => Promise.resolve(responseMock));
   await act(async () => {
     render(<Form />);
   });
