@@ -10,11 +10,6 @@ import * as Fetch from "./fake-fetch";
 // date
 // date
 
-// https://mariusschulz.com/blog/declaring-global-variables-in-typescript
-declare global {
-  var fakeThirdParthLibrary: string;
-}
-
 const arrange = async() => {
   await act(async () => {
     render(<Form />);

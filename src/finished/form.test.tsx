@@ -11,10 +11,6 @@ jest.mock('./fake-fetch')
 // "fake" fetch 
 // date
 
-// https://mariusschulz.com/blog/declaring-global-variables-in-typescript
-declare global {
-  var fakeThirdPartyJSLibrary: string;
-}
 
 let getItemSpy;
 let fakeFetch = jest.spyOn(Fetch, 'fakeFetch')
@@ -38,7 +34,7 @@ describe('Form', () => {
   })
 
   afterEach(() => {
-    // clear getItemSpy and fakeFetch
+    // reset getItemSpy and fakeFetch
     jest.resetAllMocks()
   });
 
