@@ -8,7 +8,12 @@ import * as Fetch from "./fake-fetch";
 // localStorage
 // fetch
 // date
-// timers
+// date
+
+// https://mariusschulz.com/blog/declaring-global-variables-in-typescript
+declare global {
+  var fakeThirdParthLibrary: string;
+}
 
 const arrange = async() => {
   await act(async () => {

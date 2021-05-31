@@ -2,11 +2,18 @@ import React from "react";
 import { render, screen, fireEvent, act } from "@testing-library/react";
 import { Form } from "./form";
 import * as Fetch from "./fake-fetch";
+
 jest.mock('./fake-fetch')
 
-// adding something new and temporary to the global object for this test
+// todo: mocks
+// fakeThirdPartyLibrary 
+// localStorage 
+// "fake" fetch 
+// date
+
+// https://mariusschulz.com/blog/declaring-global-variables-in-typescript
 declare global {
-  var fakeThirdPartyJSLibrary: string;
+  var fakeThirdParthLibrary: string;
 }
 
 let getItemSpy;
@@ -31,8 +38,8 @@ describe('Form', () => {
   })
 
   afterEach(() => {
-    getItemSpy.mockRestore();
-    fakeFetch.mockRestore();
+    // clear getItemSpy and fakeFetch
+    jest.resetAllMocks()
   });
 
   afterAll(() => {
@@ -118,4 +125,3 @@ describe('Form', () => {
     })).toBeVisible()
   });
 })
-
