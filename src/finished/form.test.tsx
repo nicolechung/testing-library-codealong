@@ -27,7 +27,7 @@ describe("Form", () => {
   beforeEach(() => {
     global.fakeThirdPartyJSLibrary = "💪 hello world!! 💪";
     getItemSpy = jest
-      .spyOn(global.Storage.prototype, "getItem")
+      .spyOn("window", "localStorage", "get")
       .mockReturnValue("💩💩💩");
 
     const dateNowStub = jest.fn(() => new Date("2020-04-30").valueOf());
