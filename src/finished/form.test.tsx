@@ -13,7 +13,7 @@ jest.mock('./fake-fetch')
 
 // https://mariusschulz.com/blog/declaring-global-variables-in-typescript
 declare global {
-  var fakeThirdParthLibrary: string;
+  var fakeThirdPartyJSLibrary: string;
 }
 
 let getItemSpy;
