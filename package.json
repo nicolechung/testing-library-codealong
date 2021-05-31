@@ -6,7 +6,8 @@
   "scripts": {
     "test": "jest --watch",
     "prettier": "prettier",
-    "start": "parcel index.html"
+    "start": "parcel index.html",
+    "lint": "eslint '*/**/*.{js,ts,tsx}' --fix"
   },
   "keywords": [],
   "author": "Nicole Chung",
@@ -49,7 +50,7 @@
     }
   },
   "lint-staged": {
-    "*.js": "eslint --cache --fix",
-    "*.{js,css,md}": "prettier --write"
+    "*.{js, ts, tsx}": "eslint --cache --fix",
+    "*.{js,ts,tsx,css,md}": "prettier --write"
   }
 }
