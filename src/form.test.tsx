@@ -20,7 +20,7 @@ describe("Form", () => {
     await arrange();
   });
 
-  it("should display errors with invalid data and prevent form submi", async () => {
+  it("should display errors with invalid data and prevent form submit", async () => {
     await arrange();
   });
 
