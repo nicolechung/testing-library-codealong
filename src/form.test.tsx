@@ -3,30 +3,28 @@ import { render, screen, fireEvent, act } from "@testing-library/react";
 import { Form } from "./form";
 import * as Fetch from "./fake-fetch";
 
-// todo: mocks
+// todo - mocks
 // fakeThirdPartyLibrary
 // localStorage
 // fetch
 // date
-// timers
 
-const arrange = async() => {
+const arrange = async () => {
   await act(async () => {
     render(<Form />);
   });
-}
+};
 
-describe('Form', () => {
+describe("Form", () => {
   it("should render, fetch data from the api, localstorage and globals and display the data", async () => {
-    await arrange()
+    await arrange();
   });
 
-  it("should display errors with invalid data and prevent form submi", async () => {
-    await arrange()
+  it("should display errors with invalid data and prevent form submit", async () => {
+    await arrange();
   });
 
   it("should display a success message with valid data on form submit", async () => {
-    await arrange()
+    await arrange();
   });
-})
-
+});
