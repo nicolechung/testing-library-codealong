@@ -40,8 +40,8 @@
     "husky": "7.0.4",
     "identity-obj-proxy": "3.0.0",
     "jest-dom": "4.0.0",
+    "prettier": "2.5.1",
     "lint-staged": "10.5.4",
-    "prettier": "2.2.1",
     "typescript": "4.5.2"
   },
   "husky": {
