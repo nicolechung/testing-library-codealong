@@ -2,6 +2,7 @@ import React from "react";
 import { render, screen, fireEvent, act } from "@testing-library/react";
 import { Form } from "./form";
 import * as Fetch from "./fake-fetch";
+import "../jest.setup"
 
 // todo - mocks
 // fakeThirdPartyLibrary
