@@ -16,8 +16,8 @@
   "dependencies": {
     "@babel/preset-env": "^7.12.11",
     "@babel/preset-react": "^7.12.10",
-    "babel-jest": "^26.6.3",
-    "jest": "^26.6.3",
+    "babel-jest": "^29.0.0",
+    "jest": "^29.0.0",
     "parcel": "2.0.1",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
